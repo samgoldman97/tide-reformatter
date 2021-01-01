@@ -59,6 +59,7 @@ def main(tides_file : str, timezone : str = "US/Eastern"):
     ## Now write out to a calendar
     c = Calendar()
     for row in df: 
+
         ### Crafting time
         date = row["Date"]
         time = row["Time"]
@@ -70,6 +71,7 @@ def main(tides_file : str, timezone : str = "US/Eastern"):
         am_pm = re.search("(AM|PM)", time).group()
         time = re.sub(am_pm, "",time).strip()
         hr, minutes = [int(i) for i in time.split(":")]
+
         # convert to 12 hour time
         if am_pm == "AM" and hr == 12: 
             hr -= 12
@@ -82,14 +84,8 @@ def main(tides_file : str, timezone : str = "US/Eastern"):
         time_obj = arrow.get(time_str, 'YYYY-MM-DD HH:mm:ss ZZZ')
 
         # Get name
-        if high_low == "H": 
-            event_name = f"High Tide: {feet} ft"
-        else:
-            event_name = f"Low Tide: {feet} ft"
-
-        #if month==1 and day == 1 and high_low == "H": 
-        #    import pdb
-        #    pdb.set_trace()
+        tide_name = {"H" : "High", "L": "Low"}[high_low]
+        event_name = f"{tide_name} Tide: {feet} ft"
 
         # Make and add event
         e = Event(name=event_name, begin=str(time_obj), 
@@ -105,7 +101,4 @@ if __name__=="__main__":
     args = get_args()
     arg_dict = args.__dict__
     main(**arg_dict)
-
-
-
 

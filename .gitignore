@@ -1,3 +1,5 @@
 .DS_Store
-tides.txt
 *.ics
+*.txt
+*.swp
+
