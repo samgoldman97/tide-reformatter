@@ -24,10 +24,15 @@ def get_args():
                         type=str,
                         action="store",
                         default="US/Eastern")
+    parser.add_argument("--year", 
+                        help="Year",
+                        type=str,
+                        action="store",
+                        default="")
     return parser.parse_args()
 
 
-def main(tides_file : str, timezone : str = "US/Eastern"): 
+def main(tides_file : str, timezone : str = "US/Eastern", year: str = ""): 
     """ main. """
 
     # Read in file
@@ -94,7 +99,7 @@ def main(tides_file : str, timezone : str = "US/Eastern"):
         c.events.add(e)
 
     # Export
-    with open(f'{stat_name}_tides.ics', 'w') as f:
+    with open(f'{stat_name}_tides_{year}.ics', 'w') as f:
         f.write(str(c))
 
 if __name__=="__main__": 

@@ -6,7 +6,3 @@ To download tide data for annual predictions, go to [this link](https://tidesand
 Requirements: 
 - pandas
 - ics
-
-
-
-
